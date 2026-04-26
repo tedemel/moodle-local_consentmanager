@@ -283,8 +283,20 @@ class consent_manager {
         global $DB, $USER;
 
         $revision   = (int)get_config('local_consentmanager', 'revision');
-        $allcatids  = array_keys($this->get_categories());
+        $categories = $this->get_categories();
+        $allcatids  = array_keys($categories);
         $targetcats = $acceptall ? $allcatids : $catids;
+
+        // Required categories are always implicitly granted; ensure a record
+        // exists so needs_consent() can detect that the user has answered
+        // (especially relevant for the "Essential only" flow with empty catids).
+        if (!$acceptall) {
+            foreach ($categories as $cat) {
+                if ($cat->required && !in_array((int)$cat->id, $targetcats, true)) {
+                    $targetcats[] = (int)$cat->id;
+                }
+            }
+        }
 
         $isloggedin   = isloggedin() && !isguestuser();
         if ($isloggedin) {
