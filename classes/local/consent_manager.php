@@ -277,6 +277,7 @@ class consent_manager {
      *
      * @param int[] $catids    Category IDs to grant consent to.
      * @param bool  $acceptall If true, all categories are accepted.
+     * @param string|null $providedtoken Optional guest token from the page render.
      */
     public function store_consent(array $catids, bool $acceptall = false, ?string $providedtoken = null): void {
         global $DB, $USER;
@@ -470,6 +471,12 @@ class consent_manager {
 
     /**
      * Insert or update a consent row.
+     *
+     * @param int|null $userid User id, or null for guests.
+     * @param string|null $guesttoken Guest token, or null for logged-in users.
+     * @param int $catid Category id.
+     * @param int $status Status constant from {@see consent_record}.
+     * @param int $revision Current revision number.
      */
     private function upsert_consent(?int $userid, ?string $guesttoken, int $catid, int $status, int $revision): void {
         global $DB;
@@ -504,6 +511,12 @@ class consent_manager {
 
     /**
      * Write a row to the audit log.
+     *
+     * @param int|null $userid User id, or null for guests.
+     * @param string|null $guesttoken Guest token, or null for logged-in users.
+     * @param string $action One of: given, withdrawn, declined.
+     * @param int $catid Category id.
+     * @param int $revision Current revision number.
      */
     private function write_log(?int $userid, ?string $guesttoken, string $action, int $catid, int $revision): void {
         global $DB;

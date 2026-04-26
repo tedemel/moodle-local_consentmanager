@@ -45,8 +45,9 @@ class withdraw_consent extends \core_external\external_api {
     }
 
     /**
-     * Withdraw consent for the given categories.
+     * Withdraw consent for the given category.
      *
+     * @param int $catid Category id.
      * @return array
      */
     public static function execute(int $catid): array {

@@ -59,6 +59,9 @@ class banner implements renderable, templatable {
 
     /**
      * Export data for the Mustache template.
+     *
+     * @param renderer_base $output
+     * @return array
      */
     public function export_for_template(renderer_base $output): array {
         return [

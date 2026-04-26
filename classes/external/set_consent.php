@@ -65,6 +65,9 @@ class set_consent extends \core_external\external_api {
     /**
      * Store or update consent for the given categories.
      *
+     * @param array $catids List of category ids to consent to.
+     * @param bool $acceptall Accept all categories.
+     * @param string $guesttoken Guest token for anonymous callers.
      * @return array
      */
     public static function execute(array $catids = [], bool $acceptall = false, string $guesttoken = ''): array {

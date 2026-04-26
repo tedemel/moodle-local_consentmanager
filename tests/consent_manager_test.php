@@ -43,6 +43,9 @@ final class consent_manager_test extends \advanced_testcase {
 
     /**
      * Helper: shortname → category id from the default install.
+     *
+     * @param string $shortname Category shortname.
+     * @return int Category id.
      */
     private function catid(string $shortname): int {
         $cat = consent_manager::instance()->get_category_by_shortname($shortname);

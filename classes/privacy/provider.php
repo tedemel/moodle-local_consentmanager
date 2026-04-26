@@ -47,6 +47,9 @@ class provider implements
     \core_privacy\local\request\plugin\provider {
     /**
      * Describe the data this plugin stores.
+     *
+     * @param collection $collection
+     * @return collection
      */
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table(
@@ -83,6 +86,9 @@ class provider implements
 
     /**
      * Get the list of contexts that contain user information.
+     *
+     * @param int $userid
+     * @return contextlist
      */
     public static function get_contexts_for_userid(int $userid): contextlist {
         global $DB;
@@ -104,6 +110,8 @@ class provider implements
 
     /**
      * Get the list of users who have data within a context.
+     *
+     * @param userlist $userlist
      */
     public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
@@ -116,6 +124,8 @@ class provider implements
 
     /**
      * Export user data for a list of approved contexts.
+     *
+     * @param approved_contextlist $contextlist
      */
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
@@ -148,6 +158,8 @@ class provider implements
 
     /**
      * Delete all consent data for all users in the given context.
+     *
+     * @param \context $context
      */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         // System context: we anonymise rather than delete the log (accountability).
@@ -161,6 +173,8 @@ class provider implements
 
     /**
      * Delete consent data for a single user across approved contexts.
+     *
+     * @param approved_contextlist $contextlist
      */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         global $DB;
@@ -178,6 +192,8 @@ class provider implements
 
     /**
      * Delete consent data for multiple users in a context.
+     *
+     * @param approved_userlist $userlist
      */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         global $DB;
