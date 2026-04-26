@@ -42,6 +42,7 @@
 
 .local-consentmanager-dialog .text-muted,
 .local-consentmanager-dialog .consentmanager-meta {
+    /* stylelint-disable-next-line declaration-no-important */
     color: var(--bs-secondary-color, #6c757d) !important;
 }
 
@@ -84,11 +85,13 @@
 
 [data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-intro,
 [data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-intro * {
+    /* stylelint-disable-next-line declaration-no-important */
     color: var(--bs-body-color) !important;
 }
 
 [data-bs-theme="dark"] .local-consentmanager-dialog .text-muted,
 [data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-meta {
+    /* stylelint-disable-next-line declaration-no-important */
     color: var(--bs-secondary-color) !important;
 }
 
@@ -115,11 +118,13 @@
 
     .local-consentmanager-dialog .consentmanager-intro,
     .local-consentmanager-dialog .consentmanager-intro * {
+        /* stylelint-disable-next-line declaration-no-important */
         color: var(--bs-body-color, #dee2e6) !important;
     }
 
     .local-consentmanager-dialog .text-muted,
     .local-consentmanager-dialog .consentmanager-meta {
+        /* stylelint-disable-next-line declaration-no-important */
         color: var(--bs-secondary-color, #adb5bd) !important;
     }
 

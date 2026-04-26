@@ -33,8 +33,8 @@ import Notification from 'core/notification';
 import Pending from 'core/pending';
 
 
-let bannerEl    = null;
-let config      = {};
+let bannerEl = null;
+let config = {};
 let eventsbound = false;
 let previewMode = false;
 
@@ -56,7 +56,7 @@ export const init = async(cfg) => {
         return;
     }
 
-    // needs_consent flag is supplied by PHP — no AJAX round-trip required.
+    // The needs_consent flag is supplied by PHP — no AJAX round-trip required.
     if (!cfg.needsconsent) {
         pending.resolve();
         return;
@@ -131,21 +131,37 @@ const bindEvents = () => {
 // ---------------------------------------------------------------------------
 
 const showDetails = () => {
-    const simple  = bannerEl.querySelector('.consentmanager-simple');
+    const simple = bannerEl.querySelector('.consentmanager-simple');
     const details = bannerEl.querySelector('.consentmanager-details');
-    if (simple)  { simple.setAttribute('aria-hidden', 'true'); simple.style.display = 'none'; }
-    if (details) { details.removeAttribute('aria-hidden'); details.style.display = 'block'; }
+    if (simple) {
+        simple.setAttribute('aria-hidden', 'true');
+        simple.style.display = 'none';
+    }
+    if (details) {
+        details.removeAttribute('aria-hidden');
+        details.style.display = 'block';
+    }
     const showBtn = bannerEl.querySelector('[data-action="showdetails"]');
-    if (showBtn) { showBtn.setAttribute('aria-expanded', 'true'); }
+    if (showBtn) {
+        showBtn.setAttribute('aria-expanded', 'true');
+    }
 };
 
 const hideDetails = () => {
-    const simple  = bannerEl.querySelector('.consentmanager-simple');
+    const simple = bannerEl.querySelector('.consentmanager-simple');
     const details = bannerEl.querySelector('.consentmanager-details');
-    if (simple)  { simple.removeAttribute('aria-hidden'); simple.style.display = ''; }
-    if (details) { details.setAttribute('aria-hidden', 'true'); details.style.display = 'none'; }
+    if (simple) {
+        simple.removeAttribute('aria-hidden');
+        simple.style.display = '';
+    }
+    if (details) {
+        details.setAttribute('aria-hidden', 'true');
+        details.style.display = 'none';
+    }
     const showBtn = bannerEl.querySelector('[data-action="showdetails"]');
-    if (showBtn) { showBtn.setAttribute('aria-expanded', 'false'); }
+    if (showBtn) {
+        showBtn.setAttribute('aria-expanded', 'false');
+    }
 };
 
 // ---------------------------------------------------------------------------
@@ -198,6 +214,8 @@ const sendConsent = async(catids, acceptall) => {
  *
  * Shows the banner without triggering consent storage or AJAX checks.
  * Called via $PAGE->requires->js_call_amd on dashboard.php.
+ *
+ * @param {Object} cfg Optional config (e.g. {closelabel: '✕'}).
  */
 export const initPreviewButton = (cfg = {}) => {
     const btn = document.getElementById('local-consentmanager-preview-btn');
@@ -250,17 +268,26 @@ const handleKeydown = (e) => {
     if (e.key !== 'Tab') {
         return;
     }
-    const focusable = Array.from(
-        bannerEl.querySelectorAll('button:not([disabled]), [href], input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])')
-    ).filter(el => el.offsetParent !== null); // Only visible.
+    const selector = 'button:not([disabled]), [href], input:not([disabled]),'
+        + ' select, textarea, [tabindex]:not([tabindex="-1"])';
+    const focusable = Array.from(bannerEl.querySelectorAll(selector))
+        .filter(el => el.offsetParent !== null);
 
-    if (!focusable.length) { return; }
+    if (!focusable.length) {
+        return;
+    }
     const first = focusable[0];
-    const last  = focusable[focusable.length - 1];
+    const last = focusable[focusable.length - 1];
 
     if (e.shiftKey) {
-        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        }
     } else {
-        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
     }
 };

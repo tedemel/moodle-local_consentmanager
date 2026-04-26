@@ -39,10 +39,13 @@ export const init = () => {
 };
 
 const handleWithdraw = async(e) => {
-    const btn   = e.currentTarget;
+    const btn = e.currentTarget;
     const catid = parseInt(btn.dataset.catid, 10);
     const label = await getString('btn_withdraw_confirm', 'local_consentmanager');
-    if (!window.confirm(label)) { return; }
+    // eslint-disable-next-line no-alert
+    if (!window.confirm(label)) {
+        return;
+    }
 
     const pending = new Pending('local_consentmanager/preferences/withdraw');
     btn.disabled = true;
@@ -65,7 +68,7 @@ const handleWithdraw = async(e) => {
 };
 
 const handleGive = async(e) => {
-    const btn   = e.currentTarget;
+    const btn = e.currentTarget;
     const catid = parseInt(btn.dataset.catid, 10);
 
     const pending = new Pending('local_consentmanager/preferences/give');

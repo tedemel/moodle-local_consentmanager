@@ -37,14 +37,20 @@ import Pending from 'core/pending';
 export const init = () => {
     document.addEventListener('click', async(e) => {
         const btn = e.target.closest('.consentmanager-unlock-iframe');
-        if (!btn) { return; }
+        if (!btn) {
+            return;
+        }
 
         const catid = parseInt(btn.dataset.catid, 10);
-        const src   = btn.dataset.src;
-        if (!catid || !src) { return; }
+        const src = btn.dataset.src;
+        if (!catid || !src) {
+            return;
+        }
 
         const placeholder = btn.closest('.local-consentmanager-placeholder');
-        if (!placeholder) { return; }
+        if (!placeholder) {
+            return;
+        }
 
         const pending = new Pending('local_consentmanager/iframe_unlock/click');
         btn.disabled = true;
@@ -64,13 +70,13 @@ export const init = () => {
 
             // Build a real iframe to replace the placeholder.
             const iframe = document.createElement('iframe');
-            iframe.src             = src;
-            iframe.width           = '100%';
-            iframe.height          = placeholder.offsetHeight || 315;
-            iframe.style.border    = 'none';
-            iframe.allow           = 'autoplay; encrypted-media; picture-in-picture';
+            iframe.src = src;
+            iframe.width = '100%';
+            iframe.height = placeholder.offsetHeight || 315;
+            iframe.style.border = 'none';
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
             iframe.allowFullscreen = true;
-            iframe.loading         = 'lazy';
+            iframe.loading = 'lazy';
 
             placeholder.replaceWith(iframe);
         } catch (err) {
