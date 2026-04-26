@@ -194,7 +194,7 @@ final class consent_manager_test extends \advanced_testcase {
         $event = \core\event\user_deleted::create([
             'objectid' => $user->id,
             'context'  => \context_user::instance($user->id),
-            'other'    => ['username' => $user->username],
+            'other'    => ['username' => $user->username, 'email' => $user->email],
         ]);
         consent_manager::on_user_deleted($event);
 
@@ -219,7 +219,9 @@ final class consent_manager_test extends \advanced_testcase {
 
         $out = consent_manager::instance()->replace_unconsented_iframes($html, $context);
 
-        $this->assertStringNotContainsString('youtube.com/embed/abc', $out);
+        // The live <iframe> tag must be replaced; data-src on the placeholder
+        // is intentional (click-to-load needs it).
+        $this->assertStringNotContainsString('<iframe', $out);
         $this->assertStringContainsString('consentmanager-unlock-iframe', $out);
     }
 
