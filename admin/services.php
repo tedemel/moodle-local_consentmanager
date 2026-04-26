@@ -102,7 +102,10 @@ if ($action === 'edit') {
     }
 
     echo $OUTPUT->header();
-    echo $OUTPUT->heading($id ? get_string('form_svc_name', 'local_consentmanager') : get_string('manageservices', 'local_consentmanager'));
+    $heading = $id
+        ? get_string('form_svc_name', 'local_consentmanager')
+        : get_string('manageservices', 'local_consentmanager');
+    echo $OUTPUT->heading($heading);
     $form->display();
     echo $OUTPUT->footer();
     exit;
@@ -137,11 +140,13 @@ if ($services) {
         $editurl   = new moodle_url($baseurl, ['action' => 'edit', 'id' => $svc->id]);
         $deleteurl = new moodle_url($baseurl, ['action' => 'delete', 'id' => $svc->id, 'sesskey' => sesskey()]);
         $toggleurl = new moodle_url($baseurl, ['action' => 'toggle', 'id' => $svc->id, 'sesskey' => sesskey()]);
-        $togglehtml = html_writer::tag('form',
-            html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'action',  'value' => 'toggle']) .
-            html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'id',      'value' => $svc->id]) .
+        $togglehtml = html_writer::tag(
+            'form',
+            html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'action', 'value' => 'toggle']) .
+            html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'id', 'value' => $svc->id]) .
             html_writer::empty_tag('input', ['type' => 'hidden', 'name' => 'sesskey', 'value' => sesskey()]) .
-            html_writer::tag('div',
+            html_writer::tag(
+                'div',
                 html_writer::empty_tag('input', array_merge(
                     ['class' => 'form-check-input', 'type' => 'checkbox', 'role' => 'switch',
                      'onchange' => 'this.form.submit()', 'style' => 'cursor:pointer; width:2.5em; height:1.25em'],

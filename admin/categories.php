@@ -86,7 +86,10 @@ if ($action === 'edit') {
     }
 
     echo $OUTPUT->header();
-    echo $OUTPUT->heading($id ? get_string('form_cat_name', 'local_consentmanager') : get_string('managecategories', 'local_consentmanager'));
+    $heading = $id
+        ? get_string('form_cat_name', 'local_consentmanager')
+        : get_string('managecategories', 'local_consentmanager');
+    echo $OUTPUT->heading($heading);
     $form->display();
     echo $OUTPUT->footer();
     exit;

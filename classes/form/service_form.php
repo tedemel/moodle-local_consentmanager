@@ -24,13 +24,17 @@
 
 namespace local_consentmanager\form;
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->libdir . '/formslib.php');
 
 /**
  * Form for creating and editing service registry entries.
  */
 class service_form extends \moodleform {
-
+    /**
+     * Define the form fields.
+     */
     protected function definition(): void {
         $mform = $this->_form;
 
@@ -52,11 +56,21 @@ class service_form extends \moodleform {
         $mform->addRule('catid', null, 'required');
 
         // Provider.
-        $mform->addElement('text', 'provider', get_string('form_svc_provider', 'local_consentmanager'), ['maxlength' => 255, 'size' => 50]);
+        $mform->addElement(
+            'text',
+            'provider',
+            get_string('form_svc_provider', 'local_consentmanager'),
+            ['maxlength' => 255, 'size' => 50]
+        );
         $mform->setType('provider', PARAM_TEXT);
 
         // Privacy URL.
-        $mform->addElement('text', 'privacyurl', get_string('form_svc_privacyurl', 'local_consentmanager'), ['maxlength' => 1024, 'size' => 60]);
+        $mform->addElement(
+            'text',
+            'privacyurl',
+            get_string('form_svc_privacyurl', 'local_consentmanager'),
+            ['maxlength' => 1024, 'size' => 60]
+        );
         $mform->setType('privacyurl', PARAM_URL);
 
         // Description.
@@ -80,6 +94,13 @@ class service_form extends \moodleform {
         $this->add_action_buttons();
     }
 
+    /**
+     * Custom validation rules.
+     *
+     * @param array $data
+     * @param array $files
+     * @return array
+     */
     public function validation($data, $files): array {
         $errors = parent::validation($data, $files);
 

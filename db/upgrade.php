@@ -22,8 +22,6 @@
  * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
  * Execute the plugin upgrade steps from the given old version.
  *
@@ -35,11 +33,5 @@ function xmldb_local_consentmanager_upgrade(int $oldversion): bool {
     $dbman = $DB->get_manager();
 
     // Future upgrade steps go here, keyed by version timestamp.
-    // Example:
-    // if ($oldversion < 2026050100) {
-    //     // Add new column ...
-    //     upgrade_plugin_savepoint(true, 2026050100, 'local', 'consentmanager');
-    // }
-
     return true;
 }

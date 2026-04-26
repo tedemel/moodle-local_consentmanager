@@ -33,13 +33,22 @@ use local_consentmanager\local\consent_manager;
  * Web service: withdraw consent for a single category.
  */
 class withdraw_consent extends \core_external\external_api {
-
+    /**
+     * Define web service input parameters.
+     *
+     * @return external_function_parameters
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'catid' => new external_value(PARAM_INT, 'Category ID to withdraw consent from'),
         ]);
     }
 
+    /**
+     * Withdraw consent for the given categories.
+     *
+     * @return array
+     */
     public static function execute(int $catid): array {
         $params = self::validate_parameters(self::execute_parameters(), ['catid' => $catid]);
 
@@ -56,6 +65,11 @@ class withdraw_consent extends \core_external\external_api {
         }
     }
 
+    /**
+     * Define web service return structure.
+     *
+     * @return external_single_structure
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'success' => new external_value(PARAM_BOOL, 'Whether the operation succeeded'),

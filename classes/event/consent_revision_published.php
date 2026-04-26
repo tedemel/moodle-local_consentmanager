@@ -29,25 +29,47 @@ namespace local_consentmanager\event;
  * which will cause all users to be asked for consent again.
  */
 class consent_revision_published extends \core\event\base {
-
+    /**
+     * Init event metadata.
+     */
     protected function init(): void {
         $this->data['crud']     = 'u';
         $this->data['edulevel'] = self::LEVEL_OTHER;
     }
 
+    /**
+     * Localised event name.
+     *
+     * @return string
+     */
     public static function get_name(): string {
         return get_string('event_revision_published', 'local_consentmanager');
     }
 
+    /**
+     * Human-readable description for the event log.
+     *
+     * @return string
+     */
     public function get_description(): string {
         $revision = $this->other['revision'] ?? 0;
         return "Admin published consent revision {$revision}.";
     }
 
+    /**
+     * URL to display alongside the event in the log report.
+     *
+     * @return \moodle_url
+     */
     public function get_url(): \moodle_url {
         return new \moodle_url('/local/consentmanager/admin/dashboard.php');
     }
 
+    /**
+     * Backup/restore mapping for the "other" data.
+     *
+     * @return array|false
+     */
     public static function get_other_mapping(): array {
         return false;
     }

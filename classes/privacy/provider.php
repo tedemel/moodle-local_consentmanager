@@ -43,9 +43,11 @@ use core_privacy\local\request\writer;
  */
 class provider implements
     \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\plugin\provider,
-    \core_privacy\local\request\core_userlist_provider {
-
+    \core_privacy\local\request\core_userlist_provider,
+    \core_privacy\local\request\plugin\provider {
+    /**
+     * Describe the data this plugin stores.
+     */
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table(
             'local_consentmanager_consents',
@@ -79,6 +81,9 @@ class provider implements
         return $collection;
     }
 
+    /**
+     * Get the list of contexts that contain user information.
+     */
     public static function get_contexts_for_userid(int $userid): contextlist {
         global $DB;
         $contextlist = new contextlist();
@@ -97,6 +102,9 @@ class provider implements
         return $contextlist;
     }
 
+    /**
+     * Get the list of users who have data within a context.
+     */
     public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
         if ($context->contextlevel !== CONTEXT_SYSTEM) {
@@ -106,6 +114,9 @@ class provider implements
         $userlist->add_from_table('local_consentmanager_log', 'userid');
     }
 
+    /**
+     * Export user data for a list of approved contexts.
+     */
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
         $userid = $contextlist->get_user()->id;
@@ -135,6 +146,9 @@ class provider implements
         }
     }
 
+    /**
+     * Delete all consent data for all users in the given context.
+     */
     public static function delete_data_for_all_users_in_context(\context $context): void {
         // System context: we anonymise rather than delete the log (accountability).
         if ($context->contextlevel !== CONTEXT_SYSTEM) {
@@ -145,6 +159,9 @@ class provider implements
         $DB->set_field('local_consentmanager_log', 'userid', null, []);
     }
 
+    /**
+     * Delete consent data for a single user across approved contexts.
+     */
     public static function delete_data_for_user(approved_contextlist $contextlist): void {
         global $DB;
         $userid = $contextlist->get_user()->id;
@@ -159,6 +176,9 @@ class provider implements
         }
     }
 
+    /**
+     * Delete consent data for multiple users in a context.
+     */
     public static function delete_data_for_users(approved_userlist $userlist): void {
         global $DB;
         $context = $userlist->get_context();
@@ -169,7 +189,7 @@ class provider implements
         if (empty($userids)) {
             return;
         }
-        list($insql, $inparams) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
+        [$insql, $inparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED);
         $DB->delete_records_select('local_consentmanager_consents', "userid $insql", $inparams);
         $DB->set_field_select('local_consentmanager_log', 'userid', null, "userid $insql", $inparams);
     }

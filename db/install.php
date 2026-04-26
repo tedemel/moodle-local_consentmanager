@@ -90,8 +90,10 @@ function xmldb_local_consentmanager_install(): void {
             'shortname'         => 'marketing',
             'name'              => local_consentmanager_mlang('Marketing', 'Marketing'),
             'description'       => local_consentmanager_mlang(
-                'Enable personalised content and embedding of platforms such as YouTube that include their own tracking mechanisms.',
-                'Ermöglichen personalisierte Inhalte und das Einbetten von Plattformen wie YouTube, die eigene Tracking-Mechanismen mitbringen.'
+                'Enable personalised content and embedding of platforms such as YouTube'
+                . ' that include their own tracking mechanisms.',
+                'Ermöglichen personalisierte Inhalte und das Einbetten von Plattformen wie YouTube,'
+                . ' die eigene Tracking-Mechanismen mitbringen.'
             ),
             'descriptionformat' => FORMAT_HTML,
             'required'          => 0,
@@ -114,8 +116,10 @@ function xmldb_local_consentmanager_install(): void {
             'provider'          => 'Google Ireland Ltd.',
             'privacyurl'        => 'https://policies.google.com/privacy',
             'description'       => local_consentmanager_mlang(
-                'Video platform by Google Ireland Ltd. Used for embedded YouTube videos. Data may be transferred to the USA.',
-                'Videoplattform von Google Ireland Ltd. Wird für eingebettete YouTube-Videos verwendet. Daten werden ggf. in die USA übertragen.'
+                'Video platform by Google Ireland Ltd. Used for embedded YouTube videos.'
+                . ' Data may be transferred to the USA.',
+                'Videoplattform von Google Ireland Ltd. Wird für eingebettete YouTube-Videos verwendet.'
+                . ' Daten werden ggf. in die USA übertragen.'
             ),
             'descriptionformat' => FORMAT_HTML,
             'domainpatterns'    => "youtube\\.com\nyoutu\\.be\nyoutube-nocookie\\.com",
@@ -159,8 +163,10 @@ function xmldb_local_consentmanager_install(): void {
             'provider'          => 'Google LLC',
             'privacyurl'        => 'https://policies.google.com/privacy',
             'description'       => local_consentmanager_mlang(
-                'Font service by Google. Loads fonts from Google servers — IP addresses are transmitted to Google in the process.',
-                'Schriftarten-Dienst von Google. Lädt Schriftarten von Google-Servern – dabei werden IP-Adressen an Google übertragen.'
+                'Font service by Google. Loads fonts from Google servers'
+                . ' — IP addresses are transmitted to Google in the process.',
+                'Schriftarten-Dienst von Google. Lädt Schriftarten von Google-Servern'
+                . ' – dabei werden IP-Adressen an Google übertragen.'
             ),
             'descriptionformat' => FORMAT_HTML,
             'domainpatterns'    => "fonts\\.googleapis\\.com\nfonts\\.gstatic\\.com",

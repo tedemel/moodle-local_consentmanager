@@ -31,7 +31,6 @@ use local_consentmanager\event\consent_withdrawn;
  * Singleton service — all consent read/write operations go through here.
  */
 class consent_manager {
-
     /** @var self|null */
     private static ?self $instance = null;
 
@@ -44,6 +43,9 @@ class consent_manager {
     /** @var array|null In-request consent cache [userid_or_guest => [catid => bool]] */
     private ?array $requestcache = null;
 
+    /**
+     * Private constructor — use {@see self::instance()}.
+     */
     private function __construct() {
     }
 
@@ -606,7 +608,7 @@ class consent_manager {
             $token = hash('sha256', session_id() . random_bytes(16));
             $SESSION->consentmanager_guesttoken = $token;
         }
-        // (Re)set the cookie on every request to extend the rolling expiry.
+        // Reset the cookie on every request to extend the rolling expiry.
         if (!headers_sent()) {
             $secure = !empty($CFG->cookiesecure);
             setcookie(self::GUEST_COOKIE, $token, [

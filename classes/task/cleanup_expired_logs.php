@@ -29,11 +29,18 @@ namespace local_consentmanager\task;
  * Default retention: 3 years.
  */
 class cleanup_expired_logs extends \core\task\scheduled_task {
-
+    /**
+     * Localised name shown in the scheduled task admin page.
+     *
+     * @return string
+     */
     public function get_name(): string {
         return get_string('task_cleanup_logs', 'local_consentmanager');
     }
 
+    /**
+     * Delete audit log rows older than the configured retention period.
+     */
     public function execute(): void {
         global $DB;
 

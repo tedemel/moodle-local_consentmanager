@@ -24,13 +24,17 @@
 
 namespace local_consentmanager\form;
 
+defined('MOODLE_INTERNAL') || die();
+
 require_once($CFG->libdir . '/formslib.php');
 
 /**
  * Form for creating and editing consent categories.
  */
 class category_form extends \moodleform {
-
+    /**
+     * Define the form fields.
+     */
     protected function definition(): void {
         $mform = $this->_form;
 
@@ -64,6 +68,16 @@ class category_form extends \moodleform {
         $this->add_action_buttons();
     }
 
+    /**
+     * Custom validation rules.
+     */
+    /**
+     * Custom validation rules.
+     *
+     * @param array $data
+     * @param array $files
+     * @return array
+     */
     public function validation($data, $files): array {
         $errors = parent::validation($data, $files);
 

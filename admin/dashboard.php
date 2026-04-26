@@ -94,8 +94,11 @@ foreach ($data['stats'] as $stat) {
 echo html_writer::table($table);
 
 // Revision info.
-echo html_writer::tag('p', get_string('dashboard_revision', 'local_consentmanager') . ': <strong>' . $data['revision'] . '</strong>',
-    ['class' => 'alert alert-info']);
+echo html_writer::tag(
+    'p',
+    get_string('dashboard_revision', 'local_consentmanager') . ': <strong>' . $data['revision'] . '</strong>',
+    ['class' => 'alert alert-info']
+);
 
 // Recent log.
 echo $OUTPUT->heading(get_string('dashboard_recentlog', 'local_consentmanager'), 3);

@@ -33,10 +33,12 @@ use templatable;
  * Renderable for the admin consent overview dashboard.
  */
 class admin_dashboard implements renderable, templatable {
-
     /** @var array */
     private array $stats;
 
+    /**
+     * Build the admin dashboard view-model.
+     */
     public function __construct() {
         global $DB;
 
@@ -74,11 +76,14 @@ class admin_dashboard implements renderable, templatable {
         }
     }
 
+    /**
+     * Export data for the Mustache template.
+     */
     public function export_for_template(renderer_base $output): array {
         global $DB;
 
         $revision        = (int)get_config('local_consentmanager', 'revision');
-        $revision_minor  = (bool)get_config('local_consentmanager', 'revision_minor');
+        $revisionminor  = (bool)get_config('local_consentmanager', 'revision_minor');
 
         // Recent audit log (last 100).
         $recentlogs = $DB->get_records_select(
@@ -110,7 +115,7 @@ class admin_dashboard implements renderable, templatable {
         return [
             'stats'          => $this->stats,
             'revision'       => $revision,
-            'revision_minor' => $revision_minor,
+            'revision_minor' => $revisionminor,
             'recentlogs'     => $logs,
             'export_url'     => (new \moodle_url('/local/consentmanager/admin/export.php'))->out(false),
             'sesskey'        => sesskey(),

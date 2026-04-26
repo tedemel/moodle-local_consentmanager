@@ -34,7 +34,11 @@ use local_consentmanager\local\consent_manager;
  * Web service: store or update consent for one or more categories.
  */
 class set_consent extends \core_external\external_api {
-
+    /**
+     * Define web service input parameters.
+     *
+     * @return external_function_parameters
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([
             'catids'    => new external_multiple_structure(
@@ -58,6 +62,11 @@ class set_consent extends \core_external\external_api {
         ]);
     }
 
+    /**
+     * Store or update consent for the given categories.
+     *
+     * @return array
+     */
     public static function execute(array $catids = [], bool $acceptall = false, string $guesttoken = ''): array {
         $params = self::validate_parameters(self::execute_parameters(), [
             'catids'     => $catids,
@@ -79,6 +88,11 @@ class set_consent extends \core_external\external_api {
         return ['success' => true, 'message' => ''];
     }
 
+    /**
+     * Define web service return structure.
+     *
+     * @return external_single_structure
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'success' => new external_value(PARAM_BOOL, 'Whether the operation succeeded'),

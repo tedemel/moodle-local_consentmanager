@@ -33,10 +33,12 @@ use templatable;
  * Renderable for the consent banner modal.
  */
 class banner implements renderable, templatable {
-
     /** @var array Category data with consent status */
     private array $categories;
 
+    /**
+     * Build the banner view-model from current consent state.
+     */
     public function __construct() {
         $manager        = consent_manager::instance();
         $cats           = $manager->get_categories();
@@ -55,6 +57,9 @@ class banner implements renderable, templatable {
         }
     }
 
+    /**
+     * Export data for the Mustache template.
+     */
     public function export_for_template(renderer_base $output): array {
         return [
             'categories'        => $this->categories,

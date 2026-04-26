@@ -28,9 +28,11 @@ namespace local_consentmanager\local;
  * Represents the current consent state of a user/guest for one category.
  */
 class consent_record {
-    /** Status constants */
+    /** @var int Status: user actively declined this category. */
     public const STATUS_DECLINED   = 0;
+    /** @var int Status: user has given consent for this category. */
     public const STATUS_GIVEN      = 1;
+    /** @var int Status: user previously consented but withdrew consent. */
     public const STATUS_WITHDRAWN  = 2;
 
     /** @var int */

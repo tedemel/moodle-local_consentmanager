@@ -30,7 +30,6 @@ use local_consentmanager\local\consent_manager;
  * Hooks into Moodle's page lifecycle to inject the consent banner.
  */
 class callbacks {
-
     /**
      * Called before HTTP headers are sent.
      *
@@ -94,7 +93,11 @@ class callbacks {
             $catdata[] = [
                 'id'          => $cat->id,
                 'name'        => $cat->name,
-                'description' => format_text($cat->description, $cat->descriptionformat, ['context' => \context_system::instance()]),
+                'description' => format_text(
+                    $cat->description,
+                    $cat->descriptionformat,
+                    ['context' => \context_system::instance()]
+                ),
                 'required'    => $cat->required,
                 'given'       => $cat->required || ($consents[$cat->id] ?? false),
             ];

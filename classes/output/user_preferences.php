@@ -33,12 +33,14 @@ use templatable;
  * Renderable for the "My Consents" user preferences page.
  */
 class user_preferences implements renderable, templatable {
-
     /** @var array */
     private array $categories;
     /** @var array */
     private array $history;
 
+    /**
+     * Build the user preferences view-model.
+     */
     public function __construct() {
         global $DB, $USER;
 
@@ -86,6 +88,9 @@ class user_preferences implements renderable, templatable {
         }
     }
 
+    /**
+     * Export data for the Mustache template.
+     */
     public function export_for_template(renderer_base $output): array {
         return [
             'categories'        => $this->categories,

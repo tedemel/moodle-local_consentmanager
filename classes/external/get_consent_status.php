@@ -34,11 +34,20 @@ use local_consentmanager\local\consent_manager;
  * Web service: return the current consent status for all categories.
  */
 class get_consent_status extends \core_external\external_api {
-
+    /**
+     * Define web service input parameters.
+     *
+     * @return external_function_parameters
+     */
     public static function execute_parameters(): external_function_parameters {
         return new external_function_parameters([]);
     }
 
+    /**
+     * Return the current consent status for the calling user.
+     *
+     * @return array
+     */
     public static function execute(): array {
         $manager    = consent_manager::instance();
         $categories = $manager->get_categories();
@@ -75,6 +84,11 @@ class get_consent_status extends \core_external\external_api {
         ];
     }
 
+    /**
+     * Define web service return structure.
+     *
+     * @return external_single_structure
+     */
     public static function execute_returns(): external_single_structure {
         return new external_single_structure([
             'revision'      => new external_value(PARAM_INT, 'Current consent revision'),
