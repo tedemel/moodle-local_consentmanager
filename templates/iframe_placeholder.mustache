@@ -3,6 +3,10 @@
 
     Placeholder shown in place of a blocked iframe (no consent given yet).
 
+    @package   local_consentmanager
+    @copyright 2026 Tessa Demel
+    @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+
     Context variables required for this template:
     * catid int Category id this iframe belongs to.
     * src string Original iframe src URL (loaded after consent).
@@ -18,10 +22,6 @@
         "catname": "Marketing",
         "privacyurl": "https://policies.google.com/privacy"
     }
-
-    @package   local_consentmanager
-    @copyright 2026 Tessa Demel
-    @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 }}
 <div class="local-consentmanager-placeholder"
      data-catid="{{catid}}"
