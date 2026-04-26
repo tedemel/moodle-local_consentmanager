@@ -62,7 +62,7 @@ if ($hassiteconfig) {
         'local/consentmanager:manage'
     ));
 
-    // ---- General settings ----
+    // General settings.
     $settings->add(new admin_setting_heading(
         'local_consentmanager/generalheading',
         get_string('settings_general', 'local_consentmanager'),
@@ -83,7 +83,7 @@ if ($hassiteconfig) {
         $SITE->fullname ?? ''
     ));
 
-    // ---- Revision management ----
+    // Revision management.
     $settings->add(new admin_setting_heading(
         'local_consentmanager/revisionheading',
         get_string('settings_revision', 'local_consentmanager'),
@@ -105,7 +105,7 @@ if ($hassiteconfig) {
         0
     ));
 
-    // ---- Privacy / logging settings ----
+    // Privacy / logging settings.
     $settings->add(new admin_setting_heading(
         'local_consentmanager/privacyheading',
         get_string('settings_privacy', 'local_consentmanager'),
@@ -140,7 +140,7 @@ if ($hassiteconfig) {
         3 * YEARSECS
     ));
 
-    // ---- Banner appearance ----
+    // Banner appearance.
     $settings->add(new admin_setting_heading(
         'local_consentmanager/bannerheading',
         get_string('settings_banner', 'local_consentmanager'),

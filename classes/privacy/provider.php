@@ -46,10 +46,6 @@ class provider implements
     \core_privacy\local\request\plugin\provider,
     \core_privacy\local\request\core_userlist_provider {
 
-    // -------------------------------------------------------------------------
-    // Metadata
-    // -------------------------------------------------------------------------
-
     public static function get_metadata(collection $collection): collection {
         $collection->add_database_table(
             'local_consentmanager_consents',
@@ -83,10 +79,6 @@ class provider implements
         return $collection;
     }
 
-    // -------------------------------------------------------------------------
-    // Context list
-    // -------------------------------------------------------------------------
-
     public static function get_contexts_for_userid(int $userid): contextlist {
         global $DB;
         $contextlist = new contextlist();
@@ -113,10 +105,6 @@ class provider implements
         $userlist->add_from_table('local_consentmanager_consents', 'userid');
         $userlist->add_from_table('local_consentmanager_log', 'userid');
     }
-
-    // -------------------------------------------------------------------------
-    // Export
-    // -------------------------------------------------------------------------
 
     public static function export_user_data(approved_contextlist $contextlist): void {
         global $DB;
@@ -146,10 +134,6 @@ class provider implements
             }
         }
     }
-
-    // -------------------------------------------------------------------------
-    // Deletion
-    // -------------------------------------------------------------------------
 
     public static function delete_data_for_all_users_in_context(\context $context): void {
         // System context: we anonymise rather than delete the log (accountability).

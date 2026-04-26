@@ -44,14 +44,12 @@ $PAGE->set_heading(get_string('manageservices', 'local_consentmanager'));
 
 $manager = consent_manager::instance();
 
-// ---- Delete ----
 if ($action === 'delete' && $id) {
     require_sesskey();
     $manager->delete_service($id);
     redirect($baseurl, get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
 }
 
-// ---- Toggle enabled ----
 if ($action === 'toggle' && $id) {
     require_sesskey();
     global $DB;
@@ -63,7 +61,6 @@ if ($action === 'toggle' && $id) {
     redirect($baseurl, get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
 }
 
-// ---- Add / Edit ----
 if ($action === 'edit') {
     global $DB;
     $existing = null;
@@ -111,7 +108,6 @@ if ($action === 'edit') {
     exit;
 }
 
-// ---- List ----
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('manageservices', 'local_consentmanager'));
 echo $OUTPUT->box(get_string('admin_services_intro', 'local_consentmanager'), 'generalbox mb-3');

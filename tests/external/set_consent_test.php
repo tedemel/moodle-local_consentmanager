@@ -29,11 +29,12 @@ use local_consentmanager\local\consent_manager;
 use local_consentmanager\local\consent_record;
 
 /**
+ * Unit tests for the set_consent and withdraw_consent external functions.
+ *
  * @covers \local_consentmanager\external\set_consent
  * @covers \local_consentmanager\external\withdraw_consent
  */
 final class set_consent_test extends \advanced_testcase {
-
     protected function setUp(): void {
         parent::setUp();
         $this->resetAfterTest();
@@ -42,6 +43,12 @@ final class set_consent_test extends \advanced_testcase {
         set_config('revision', 1, 'local_consentmanager');
     }
 
+    /**
+     * Resolve a category shortname to its database id.
+     *
+     * @param string $shortname Category shortname.
+     * @return int Category id.
+     */
     private function catid(string $shortname): int {
         return consent_manager::instance()->get_category_by_shortname($shortname)->id;
     }

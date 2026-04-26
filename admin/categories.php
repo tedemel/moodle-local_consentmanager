@@ -44,14 +44,12 @@ $PAGE->set_heading(get_string('managecategories', 'local_consentmanager'));
 
 $manager = consent_manager::instance();
 
-// ---- Delete action ----
 if ($action === 'delete' && $id) {
     require_sesskey();
     $manager->delete_category($id);
     redirect($baseurl, get_string('changessaved'), null, \core\output\notification::NOTIFY_SUCCESS);
 }
 
-// ---- Add / Edit form ----
 if ($action === 'edit') {
     $existing = null;
     if ($id) {
@@ -94,7 +92,6 @@ if ($action === 'edit') {
     exit;
 }
 
-// ---- List ----
 echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('managecategories', 'local_consentmanager'));
 echo $OUTPUT->box(get_string('admin_categories_intro', 'local_consentmanager'), 'generalbox mb-3');

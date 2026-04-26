@@ -28,10 +28,11 @@ use local_consentmanager\local\consent_manager;
 use local_consentmanager\local\consent_record;
 
 /**
+ * Unit tests for the consent_manager service.
+ *
  * @covers \local_consentmanager\local\consent_manager
  */
 final class consent_manager_test extends \advanced_testcase {
-
     protected function setUp(): void {
         parent::setUp();
         $this->resetAfterTest();
@@ -244,7 +245,7 @@ final class consent_manager_test extends \advanced_testcase {
         // Inject a syntactically invalid token.
         $_COOKIE['cm_guesttoken'] = 'not-a-hex-token';
 
-        // get_user_consents should fall back to "no consent" for guests.
+        // Get_user_consents should fall back to "no consent" for guests.
         $consents = $manager->get_user_consents();
         $this->assertFalse($consents[$marketingid] ?? false);
 

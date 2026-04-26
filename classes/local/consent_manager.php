@@ -59,10 +59,6 @@ class consent_manager {
         return self::$instance;
     }
 
-    // -------------------------------------------------------------------------
-    // Category management
-    // -------------------------------------------------------------------------
-
     /**
      * Return all categories ordered by sortorder.
      *
@@ -140,10 +136,6 @@ class consent_manager {
         $this->invalidate_user_consent_cache();
     }
 
-    // -------------------------------------------------------------------------
-    // Service (third-party) management
-    // -------------------------------------------------------------------------
-
     /**
      * Return all enabled services.
      *
@@ -214,10 +206,6 @@ class consent_manager {
         $this->services = null;
         \cache::make('local_consentmanager', 'serviceregistry')->delete('all');
     }
-
-    // -------------------------------------------------------------------------
-    // Consent read/write
-    // -------------------------------------------------------------------------
 
     /**
      * Return the consent status array for the current user/guest.
@@ -387,10 +375,6 @@ class consent_manager {
         return $count === 0;
     }
 
-    // -------------------------------------------------------------------------
-    // Filter / iframe replacement
-    // -------------------------------------------------------------------------
-
     /**
      * Scan $text for iframes matching registered service patterns and replace
      * unconsented ones with an opt-in placeholder.
@@ -465,10 +449,6 @@ class consent_manager {
         return $OUTPUT->render_from_template('local_consentmanager/iframe_placeholder', $data);
     }
 
-    // -------------------------------------------------------------------------
-    // Privacy / user deletion
-    // -------------------------------------------------------------------------
-
     /**
      * Event observer: anonymise consent data when a user is deleted.
      *
@@ -485,10 +465,6 @@ class consent_manager {
         // Anonymise audit log (DSGVO: Nachweispflicht bleibt, Personenbezug entfällt).
         $DB->set_field('local_consentmanager_log', 'userid', null, ['userid' => $userid]);
     }
-
-    // -------------------------------------------------------------------------
-    // Helpers
-    // -------------------------------------------------------------------------
 
     /**
      * Insert or update a consent row.
