@@ -194,7 +194,13 @@ final class consent_manager_test extends \advanced_testcase {
         $event = \core\event\user_deleted::create([
             'objectid' => $user->id,
             'context'  => \context_user::instance($user->id),
-            'other'    => ['username' => $user->username, 'email' => $user->email],
+            'other'    => [
+                'username'   => $user->username,
+                'email'      => $user->email,
+                'idnumber'   => $user->idnumber,
+                'picture'    => $user->picture,
+                'mnethostid' => $user->mnethostid,
+            ],
         ]);
         consent_manager::on_user_deleted($event);
 
