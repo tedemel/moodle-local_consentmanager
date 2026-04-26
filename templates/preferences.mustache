@@ -1,5 +1,25 @@
 {{!
+    @template local_consentmanager/preferences
+
     User consent preferences page.
+
+    Context variables required for this template:
+    * categories array List of categories with current consent state.
+    * history array Recent audit log rows for the current user.
+    * privacypolicy_url string URL to the privacy policy.
+
+    Example context (json):
+    {
+        "categories": [
+            {"id": 1, "name": "Essential", "description": "Required.", "required": true, "given": true},
+            {"id": 2, "name": "Marketing", "description": "Optional.", "required": false, "given": false}
+        ],
+        "history": [
+            {"action": "given", "catname": "Marketing", "timecreated": "1 Jan 2026"}
+        ],
+        "privacypolicy_url": "https://example.com/privacy"
+    }
+
     @package   local_consentmanager
     @copyright 2026 Tessa Demel
     @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

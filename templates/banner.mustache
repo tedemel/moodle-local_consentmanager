@@ -1,5 +1,39 @@
 {{!
+    @template local_consentmanager/banner
+
     Consent manager banner modal.
+
+    Classes required for JS:
+    * local-consentmanager-banner
+
+    Data attributes required for JS:
+    * data-revision
+
+    Context variables required for this template:
+    * revision int Current consent revision number.
+    * categories array List of category descriptors (id, name, description, required, given).
+    * banner_intro string HTML intro text shown above the buttons.
+    * privacypolicy_url string URL to the privacy policy.
+    * imprint_url string URL to the imprint / legal notice.
+    * mypreferences_url string URL to the user preferences page.
+    * sitename string Name of the site, shown in the dialog.
+    * isloggedin bool Whether a logged-in (non-guest) user is viewing.
+
+    Example context (json):
+    {
+        "revision": 1,
+        "categories": [
+            {"id": 1, "name": "Essential", "description": "Required.", "required": true, "given": true},
+            {"id": 2, "name": "Marketing", "description": "Optional.", "required": false, "given": false}
+        ],
+        "banner_intro": "<p>This site uses cookies.</p>",
+        "privacypolicy_url": "https://example.com/privacy",
+        "imprint_url": "https://example.com/imprint",
+        "mypreferences_url": "/local/consentmanager/mypreferences.php",
+        "sitename": "Example Moodle",
+        "isloggedin": false
+    }
+
     @package   local_consentmanager
     @copyright 2026 Tessa Demel
     @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later

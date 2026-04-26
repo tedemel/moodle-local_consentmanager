@@ -1,5 +1,24 @@
 {{!
-    Placeholder for a blocked iframe (no consent given).
+    @template local_consentmanager/iframe_placeholder
+
+    Placeholder shown in place of a blocked iframe (no consent given yet).
+
+    Context variables required for this template:
+    * catid int Category id this iframe belongs to.
+    * src string Original iframe src URL (loaded after consent).
+    * servicename string Display name of the third-party service.
+    * catname string Display name of the consent category.
+    * privacyurl string URL to the service's privacy policy.
+
+    Example context (json):
+    {
+        "catid": 4,
+        "src": "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "servicename": "YouTube",
+        "catname": "Marketing",
+        "privacyurl": "https://policies.google.com/privacy"
+    }
+
     @package   local_consentmanager
     @copyright 2026 Tessa Demel
     @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
