@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="local/consentmanager/db" VERSION="20260419" COMMENT="XMLDB file for local_consentmanager"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
+  <TABLES>
+
+    <!-- Consent categories (essential, functional, statistics, marketing, custom…) -->
+    <TABLE NAME="local_consentmanager_cats" COMMENT="Consent categories">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="shortname" TYPE="char" LENGTH="100" NOTNULL="true" COMMENT="Machine-readable identifier, e.g. essential"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Human-readable display name"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false" COMMENT="Detailed description shown in the banner"/>
+        <FIELD NAME="descriptionformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1" COMMENT="FORMAT_HTML=1"/>
+        <FIELD NAME="required" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="1=essential, cannot be declined"/>
+        <FIELD NAME="sortorder" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="shortname_unique" TYPE="unique" FIELDS="shortname"/>
+      </KEYS>
+    </TABLE>
+
+    <!-- Third-party services with domain patterns for iframe blocking -->
+    <TABLE NAME="local_consentmanager_services" COMMENT="Third-party services registry">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="catid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="FK to local_consentmanager_cats"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Display name, e.g. YouTube"/>
+        <FIELD NAME="provider" TYPE="char" LENGTH="255" NOTNULL="false" COMMENT="Legal entity responsible, e.g. Google Ireland Ltd."/>
+        <FIELD NAME="privacyurl" TYPE="text" NOTNULL="false" COMMENT="URL to provider privacy policy"/>
+        <FIELD NAME="description" TYPE="text" NOTNULL="false"/>
+        <FIELD NAME="descriptionformat" TYPE="int" LENGTH="2" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="domainpatterns" TYPE="text" NOTNULL="false" COMMENT="One regex per line matched against iframe src"/>
+        <FIELD NAME="enabled" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="catid" TYPE="foreign" FIELDS="catid" REFTABLE="local_consentmanager_cats" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="enabled" UNIQUE="false" FIELDS="enabled"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Current consent status per user/guest per category -->
+    <TABLE NAME="local_consentmanager_consents" COMMENT="Current user consent status per category">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="NULL for guests"/>
+        <FIELD NAME="guesttoken" TYPE="char" LENGTH="64" NOTNULL="false" COMMENT="Hashed session ID for guests"/>
+        <FIELD NAME="catid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="status" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" COMMENT="0=declined 1=given 2=withdrawn"/>
+        <FIELD NAME="revision" TYPE="int" LENGTH="6" NOTNULL="true" DEFAULT="1" COMMENT="Consent revision at time of action"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="catid" TYPE="foreign" FIELDS="catid" REFTABLE="local_consentmanager_cats" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_catid" UNIQUE="true" FIELDS="userid, catid"/>
+        <INDEX NAME="guesttoken_catid" UNIQUE="true" FIELDS="guesttoken, catid"/>
+        <INDEX NAME="userid" UNIQUE="false" FIELDS="userid"/>
+      </INDEXES>
+    </TABLE>
+
+    <!-- Append-only audit log for regulatory compliance -->
+    <TABLE NAME="local_consentmanager_log" COMMENT="Audit trail of all consent actions (append-only)">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="false" COMMENT="NULL for guests or after anonymisation"/>
+        <FIELD NAME="guesttoken" TYPE="char" LENGTH="64" NOTNULL="false"/>
+        <FIELD NAME="action" TYPE="char" LENGTH="32" NOTNULL="true" COMMENT="given|withdrawn|revoked_by_admin|expired"/>
+        <FIELD NAME="catid" TYPE="int" LENGTH="10" NOTNULL="true"/>
+        <FIELD NAME="revision" TYPE="int" LENGTH="6" NOTNULL="true" DEFAULT="1"/>
+        <FIELD NAME="ipaddress" TYPE="char" LENGTH="45" NOTNULL="false" COMMENT="IPv6-safe, optionally anonymised"/>
+        <FIELD NAME="useragent" TYPE="text" NOTNULL="false" COMMENT="Optional, configurable"/>
+        <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="userid_timecreated" UNIQUE="false" FIELDS="userid, timecreated"/>
+        <INDEX NAME="timecreated" UNIQUE="false" FIELDS="timecreated"/>
+      </INDEXES>
+    </TABLE>
+
+  </TABLES>
+</XMLDB>

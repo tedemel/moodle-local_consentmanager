@@ -1,0 +1,40 @@
+{{!
+    Placeholder for a blocked iframe (no consent given).
+    @package   local_consentmanager
+    @copyright 2026 Tessa Demel
+    @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+}}
+<div class="local-consentmanager-placeholder"
+     data-catid="{{catid}}"
+     data-src="{{src}}"
+     role="region"
+     aria-label="{{#str}} placeholder_label, local_consentmanager, {{servicename}} {{/str}}">
+    <div class="consentmanager-placeholder-inner">
+        <div class="consentmanager-placeholder-icon" aria-hidden="true">
+            <i class="fa fa-lock fa-2x"></i>
+        </div>
+        <p class="consentmanager-placeholder-msg">
+            {{#str}} placeholder_msg, local_consentmanager, {{servicename}} {{/str}}
+        </p>
+        <p class="consentmanager-placeholder-catmsg small text-muted">
+            {{#str}} placeholder_category, local_consentmanager, {{catname}} {{/str}}
+        </p>
+        <div class="consentmanager-placeholder-actions">
+            <button type="button"
+                    class="btn btn-sm btn-primary consentmanager-unlock-iframe"
+                    data-catid="{{catid}}"
+                    data-src="{{src}}"
+                    aria-label="{{#str}} placeholder_btn_label, local_consentmanager, {{servicename}} {{/str}}">
+                {{#str}} placeholder_btn, local_consentmanager {{/str}}
+            </button>
+            {{#privacyurl}}
+            <a href="{{privacyurl}}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="btn btn-sm btn-link">
+                {{#str}} placeholder_privacy, local_consentmanager {{/str}}
+            </a>
+            {{/privacyurl}}
+        </div>
+    </div>
+</div>

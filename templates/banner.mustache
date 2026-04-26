@@ -1,0 +1,138 @@
+{{!
+    Consent manager banner modal.
+    @package   local_consentmanager
+    @copyright 2026 Tessa Demel
+    @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+}}
+<div id="local-consentmanager-banner"
+     class="local-consentmanager-banner"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="consentmanager-title"
+     aria-describedby="consentmanager-desc"
+     style="display:none;"
+     data-revision="{{revision}}">
+
+    <div class="local-consentmanager-backdrop"></div>
+
+    <div class="local-consentmanager-dialog">
+
+        {{! Simple view (shown first) }}
+        <div class="consentmanager-simple" id="consentmanager-simple">
+            <div class="consentmanager-header">
+                <h2 id="consentmanager-title" class="h4">
+                    {{#str}} banner_title, local_consentmanager {{/str}}
+                </h2>
+            </div>
+
+            <div class="consentmanager-body" id="consentmanager-desc">
+                {{#banner_intro}}
+                    <div class="consentmanager-intro">{{{banner_intro}}}</div>
+                {{/banner_intro}}
+                {{^banner_intro}}
+                    <p>{{#str}} banner_default_intro, local_consentmanager, {{sitename}} {{/str}}</p>
+                {{/banner_intro}}
+
+                {{#privacypolicy_url}}
+                    <p class="consentmanager-links">
+                        <a href="{{privacypolicy_url}}" target="_blank" rel="noopener noreferrer">
+                            {{#str}} privacypolicy, local_consentmanager {{/str}}
+                        </a>
+                        {{#imprint_url}}
+                        &nbsp;|&nbsp;
+                        <a href="{{imprint_url}}" target="_blank" rel="noopener noreferrer">
+                            {{#str}} imprint, local_consentmanager {{/str}}
+                        </a>
+                        {{/imprint_url}}
+                    </p>
+                {{/privacypolicy_url}}
+            </div>
+
+            <div class="consentmanager-footer consentmanager-footer-buttons">
+                <button type="button"
+                        class="btn btn-primary"
+                        data-action="acceptall"
+                        aria-label="{{#str}} btn_acceptall_label, local_consentmanager {{/str}}">
+                    {{#str}} btn_acceptall, local_consentmanager {{/str}}
+                </button>
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-action="acceptessential"
+                        aria-label="{{#str}} btn_essential_label, local_consentmanager {{/str}}">
+                    {{#str}} btn_essential, local_consentmanager {{/str}}
+                </button>
+                <button type="button"
+                        class="btn btn-link"
+                        data-action="showdetails"
+                        aria-expanded="false"
+                        aria-controls="consentmanager-details">
+                    {{#str}} btn_settings, local_consentmanager {{/str}}
+                </button>
+            </div>
+        </div>
+
+        {{! Detail view (shown when "Settings" is clicked) }}
+        <div class="consentmanager-details" id="consentmanager-details" aria-hidden="true" style="display:none;">
+            <div class="consentmanager-header">
+                <h2 class="h4">{{#str}} banner_settings_title, local_consentmanager {{/str}}</h2>
+                <button type="button"
+                        class="btn btn-icon"
+                        data-action="hidesettings"
+                        aria-label="{{#str}} btn_back, local_consentmanager {{/str}}">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            <div class="consentmanager-body consentmanager-categories">
+                {{#categories}}
+                <div class="consentmanager-category" data-catid="{{id}}">
+                    <div class="consentmanager-cat-header">
+                        <label class="consentmanager-cat-label" for="consent_cat_{{id}}">
+                            <strong>{{name}}</strong>
+                            {{#required}}
+                                <span class="badge badge-secondary ms-1">
+                                    {{#str}} cat_required, local_consentmanager {{/str}}
+                                </span>
+                            {{/required}}
+                        </label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input consentmanager-toggle"
+                                   type="checkbox"
+                                   role="switch"
+                                   id="consent_cat_{{id}}"
+                                   data-catid="{{id}}"
+                                   {{#required}} disabled checked {{/required}}
+                                   {{^required}} {{#given}} checked {{/given}} {{/required}}
+                                   aria-label="{{name}}">
+                        </div>
+                    </div>
+                    {{#description}}
+                        <div class="consentmanager-cat-desc small text-muted">{{{description}}}</div>
+                    {{/description}}
+                </div>
+                {{/categories}}
+            </div>
+
+            <div class="consentmanager-footer consentmanager-footer-buttons">
+                <button type="button"
+                        class="btn btn-primary"
+                        data-action="saveselection">
+                    {{#str}} btn_save, local_consentmanager {{/str}}
+                </button>
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-action="acceptall">
+                    {{#str}} btn_acceptall, local_consentmanager {{/str}}
+                </button>
+            </div>
+        </div>
+
+        {{! Footer link to "My consents" — only useful for logged-in users. }}
+        {{#isloggedin}}
+        <div class="consentmanager-meta text-center small text-muted mt-2">
+            <a href="{{mypreferences_url}}">{{#str}} mypreferences, local_consentmanager {{/str}}</a>
+        </div>
+        {{/isloggedin}}
+
+    </div>{{! /.local-consentmanager-dialog }}
+</div>{{! /#local-consentmanager-banner }}

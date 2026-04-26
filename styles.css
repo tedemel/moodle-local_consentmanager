@@ -1,0 +1,162 @@
+/**
+ * Styles for local_consentmanager.
+ *
+ * @package   local_consentmanager
+ * @copyright 2026 Tessa Demel
+ * @license   https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/* ── Banner overlay ───────────────────────────────────────────────────────── */
+
+.local-consentmanager-banner {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.local-consentmanager-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .45);
+}
+
+.local-consentmanager-dialog {
+    position: relative;
+    background: var(--bs-body-bg, #fff);
+    color: var(--bs-body-color, #212529);
+    border-radius: .5rem .5rem 0 0;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 1.5rem;
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, .18);
+}
+
+.local-consentmanager-dialog a {
+    color: var(--bs-link-color, #0d6efd);
+}
+
+.local-consentmanager-dialog .text-muted,
+.local-consentmanager-dialog .consentmanager-meta {
+    color: var(--bs-secondary-color, #6c757d) !important;
+}
+
+.local-consentmanager-dialog .btn-link {
+    color: var(--bs-link-color, #0d6efd);
+}
+
+.local-consentmanager-dialog .btn-outline-secondary {
+    color: var(--bs-secondary-color, #6c757d);
+    border-color: var(--bs-secondary-color, #6c757d);
+}
+
+.consentmanager-footer-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-top: 1rem;
+}
+
+.consentmanager-category {
+    border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+    padding: .75rem 0;
+}
+
+.consentmanager-category:last-child {
+    border-bottom: none;
+}
+
+.consentmanager-cat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Bootstrap 5 programmatic dark mode (data-bs-theme="dark") */
+[data-bs-theme="dark"] .local-consentmanager-dialog {
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-intro,
+[data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-intro * {
+    color: var(--bs-body-color) !important;
+}
+
+[data-bs-theme="dark"] .local-consentmanager-dialog .text-muted,
+[data-bs-theme="dark"] .local-consentmanager-dialog .consentmanager-meta {
+    color: var(--bs-secondary-color) !important;
+}
+
+[data-bs-theme="dark"] .local-consentmanager-dialog a,
+[data-bs-theme="dark"] .local-consentmanager-dialog .btn-link {
+    color: var(--bs-link-color);
+}
+
+[data-bs-theme="dark"] .local-consentmanager-dialog .btn-outline-secondary {
+    color: var(--bs-secondary-color);
+    border-color: var(--bs-secondary-color);
+}
+
+[data-bs-theme="dark"] .consentmanager-category {
+    border-color: var(--bs-border-color);
+}
+
+/* Fallback: system-level dark mode */
+@media (prefers-color-scheme: dark) {
+    .local-consentmanager-dialog {
+        background: var(--bs-body-bg, #212529);
+        color: var(--bs-body-color, #dee2e6);
+    }
+
+    .local-consentmanager-dialog .consentmanager-intro,
+    .local-consentmanager-dialog .consentmanager-intro * {
+        color: var(--bs-body-color, #dee2e6) !important;
+    }
+
+    .local-consentmanager-dialog .text-muted,
+    .local-consentmanager-dialog .consentmanager-meta {
+        color: var(--bs-secondary-color, #adb5bd) !important;
+    }
+
+    .local-consentmanager-dialog a,
+    .local-consentmanager-dialog .btn-link {
+        color: var(--bs-link-color, #6ea8fe);
+    }
+
+    .local-consentmanager-dialog .btn-outline-secondary {
+        color: var(--bs-secondary-color, #adb5bd);
+        border-color: var(--bs-secondary-color, #adb5bd);
+    }
+
+    .consentmanager-category {
+        border-color: var(--bs-border-color, #495057);
+    }
+}
+
+/* ── Iframe placeholder ───────────────────────────────────────────────────── */
+
+.local-consentmanager-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background: var(--bs-tertiary-bg, #f5f5f5);
+    border: 2px dashed var(--bs-border-color, #ccc);
+    border-radius: .375rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.consentmanager-placeholder-inner {
+    max-width: 400px;
+}
+
+.consentmanager-placeholder-icon {
+    color: var(--bs-secondary-color, #999);
+    margin-bottom: .75rem;
+}
