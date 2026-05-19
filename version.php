@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_consentmanager';
-$plugin->version   = 2026042500;
-$plugin->requires  = 2024100700; // Moodle 5.0.
-$plugin->supported = [500, 502];  // Moodle 5.0 – 5.2.
+$plugin->version   = 2026051904;
+$plugin->requires  = 2024100700; // Moodle 4.5 LTS.
+$plugin->supported = [405, 502]; // Moodle 4.5 LTS – 5.2.
 $plugin->maturity  = MATURITY_BETA;
-$plugin->release   = '1.1.0';
+$plugin->release   = '1.1.1';
