@@ -3,7 +3,7 @@
 [![Moodle Plugin CI](https://github.com/tedemel/moodle-local_consentmanager/actions/workflows/moodle-ci.yml/badge.svg)](https://github.com/tedemel/moodle-local_consentmanager/actions/workflows/moodle-ci.yml)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-A fully Moodle-API-conformant consent manager plugin for Moodle 5.0+ by **Tessa Demel**.
+A fully Moodle-API-conformant consent manager plugin for Moodle 4.5 LTS, 5.0, 5.1 and 5.2 by **Tessa Demel**.
 
 ## Overview
 
@@ -73,11 +73,11 @@ on the next page load.
 
 ## Requirements
 
-| Component | Minimum |
-|-----------|---------|
-| Moodle    | 5.0     |
-| PHP       | 8.2     |
-| Database  | MariaDB 10.6 / PostgreSQL 13 |
+| Component | Minimum | Supported |
+|-----------|---------|-----------|
+| Moodle    | 4.5 LTS | 4.5 LTS, 5.0, 5.1, 5.2 |
+| PHP       | 8.2     | 8.2 – 8.4 |
+| Database  | MariaDB 10.6 / PostgreSQL 16 | MariaDB ≥ 10.6, PostgreSQL ≥ 16 (5.2) |
 
 Both plugins must be installed together:
 
