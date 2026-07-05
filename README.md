@@ -8,13 +8,16 @@ A fully Moodle-API-conformant consent manager plugin for Moodle 5.0, 5.1 and 5.2
 ## Overview
 
 `local_consentmanager` provides a GDPR/TTDSG-compliant consent layer for Moodle 5.  
-It blocks third-party iframes (YouTube, Vimeo, H5P.com, Matomo, Google Fonts, etc.) until the user explicitly consents per service category.
+It blocks third-party iframes (YouTube, Vimeo, H5P.com, Google Maps, etc.) until the user explicitly consents per service category.
 
 It is delivered together with its companion filter plugin **filter_consentmanager**, which handles iframe replacement in text content.
+
+**Scope:** the filter intercepts `<iframe>` embeds in content. Third-party resources loaded *outside* of iframes — e.g. a Matomo tracking snippet or Google Fonts pulled in by your theme — are **not** intercepted. Host such assets locally, or gate them by other means, before relying on this plugin for full compliance.
 
 ### Key features
 
 - **Category-based consent** — configurable categories (Essential, Functional, Statistics, Marketing); Essential always active
+- **Works without accounts** — guests (incl. Moodle guest login) and anonymous visitors are covered via a first-party token cookie; consent is stored server-side against that token
 - **Page-level consent banner** — modal dialog with simple and detailed views; ARIA-accessible, keyboard-navigable, focus-trapped
 - **Service registry** — admin configures per-service domain patterns (regex); any new third-party service can be added without code changes
 - **Iframe blocking** — `filter_consentmanager` replaces unconsented iframes with a branded placeholder + "Accept and show" button
@@ -34,10 +37,10 @@ It is delivered together with its companion filter plugin **filter_consentmanage
 
 ### First visit
 
-When a user opens a page that contains blocked third-party content, a consent
-banner slides up from the bottom of the screen:
+As long as no consent decision is recorded for the visitor, every page shows
+a consent banner sliding up from the bottom of the screen:
 
-> **Your privacy settings**
+> **Your privacy settings**   \[×\]
 > This learning platform uses cookies and embeds content from external providers
 > (e.g. YouTube, Vimeo). Technically necessary cookies are always active.
 >
@@ -58,11 +61,14 @@ explicitly clicks a consent button.**
 | Action | Result |
 |--------|--------|
 | Click **Accept all** in banner | Page reloads; all iframes appear |
-| Click **Accept and show** on a placeholder | That single iframe loads immediately via JavaScript |
-| Click **Essential only** | Page reloads; iframes remain blocked |
+| Click **Accept and show** on a placeholder | Grants consent for that service's **entire category** (persistently) — the iframe loads immediately, and all other embeds of the same category are unblocked from then on |
+| Click **Essential only** | Page reloads; iframes remain blocked, placeholders with per-category opt-in stay available |
+| Click **×** (close) | Same as **Essential only** — closing the banner is never counted as acceptance |
 
-On subsequent page loads the banner does not appear again (consent is stored
-for the configured duration).
+On subsequent page loads the banner does not appear again. For logged-in
+users the decision is stored with their account until they withdraw it or the
+site raises the consent revision; for guests and anonymous visitors it is tied
+to the `cm_guesttoken` cookie (see below).
 
 ### Withdrawing consent
 
@@ -70,6 +76,25 @@ Users can manage and withdraw their consent at any time under
 **My preferences** (linked in the banner footer and the user profile).
 Per-category withdrawal is supported. After withdrawal, placeholders reappear
 on the next page load.
+
+### Guests and anonymous visitors
+
+The consent flow works without a user account. Guests (including Moodle's
+guest login) and anonymous visitors receive a random token in a first-party
+cookie; their consent is stored server-side against that token, so they are
+not re-asked on every visit or after closing the browser. Deleting the cookie
+simply means the banner is shown again — no server-side data is lost.
+
+## Cookies set by this plugin
+
+Document these in your site's privacy policy:
+
+| Cookie | Purpose | Lifetime | Properties |
+|--------|---------|----------|------------|
+| `cm_guesttoken` | Recognises guests/anonymous visitors so consent is not re-asked | 12 months, rolling | First-party, `HttpOnly`, `SameSite=Lax`; strictly necessary |
+
+The plugin sets no other cookies. Logged-in users are recognised via Moodle's
+own session cookie.
 
 ## Requirements
 
@@ -96,9 +121,9 @@ Both plugins must be installed together:
 ### Option B — Manual
 
 ```bash
-# Unzip to the correct directories
-unzip local_consentmanager.zip -d /path/to/moodle/local/
-unzip filter_consentmanager.zip -d /path/to/moodle/filter/
+# Unzip to the correct directories (Moodle 5 keeps web-served code under public/)
+unzip local_consentmanager.zip -d /path/to/moodle/public/local/
+unzip filter_consentmanager.zip -d /path/to/moodle/public/filter/
 
 # Run upgrade
 php admin/cli/upgrade.php
@@ -108,8 +133,8 @@ php admin/cli/upgrade.php
 
 ```bash
 cd /path/to/moodle
-git clone https://github.com/tedemel/moodle-local_consentmanager local/consentmanager
-git clone https://github.com/tedemel/moodle-filter_consentmanager filter/consentmanager
+git clone https://github.com/tedemel/moodle-local_consentmanager public/local/consentmanager
+git clone https://github.com/tedemel/moodle-filter_consentmanager public/filter/consentmanager
 php admin/cli/upgrade.php
 ```
 
@@ -165,3 +190,4 @@ Copyright © 2026 Tessa Demel
 ## Support
 
 - GitHub Issues: <https://github.com/tedemel/moodle-local_consentmanager/issues>
+- Changelog: [CHANGELOG.md](CHANGELOG.md)
