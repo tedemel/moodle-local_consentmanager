@@ -191,10 +191,14 @@ const sendConsent = async(catids, acceptall) => {
     }
     const pending = new Pending('local_consentmanager/banner/sendConsent');
     try {
+        // Logged-in users must go through service.php (with session) so the
+        // consent is stored under their userid; service-nologin.php runs under
+        // NO_MOODLE_COOKIES where isloggedin() is always false and the consent
+        // would end up on a guest token instead.
         await Ajax.call([{
             methodname: 'local_consentmanager_set_consent',
             args: {catids, acceptall, guesttoken: config.guesttoken || ''},
-        }], true, false)[0];
+        }], true, Boolean(config.isloggedin))[0];
         hideBanner();
         // Reload to display previously blocked iframes.
         window.location.reload();
