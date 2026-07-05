@@ -368,6 +368,11 @@ class consent_manager {
             return false;
         }
 
+        // No categories configured → nothing to consent to.
+        if (empty($this->get_categories())) {
+            return false;
+        }
+
         $revision = (int)get_config('local_consentmanager', 'revision');
 
         if (isloggedin() && !isguestuser()) {

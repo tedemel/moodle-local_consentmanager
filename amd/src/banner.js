@@ -199,6 +199,7 @@ const sendConsent = async(catids, acceptall) => {
         // Reload to display previously blocked iframes.
         window.location.reload();
     } catch (e) {
+        hideBanner();
         Notification.exception(e);
     } finally {
         pending.resolve();

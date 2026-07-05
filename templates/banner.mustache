@@ -51,6 +51,13 @@
 
     <div class="local-consentmanager-dialog">
 
+        <button type="button"
+                class="btn consentmanager-close-btn"
+                data-action="acceptessential"
+                aria-label="{{#str}} btn_close_label, local_consentmanager {{/str}}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
         {{! Simple view (shown first) }}
         <div class="consentmanager-simple" id="consentmanager-simple">
             <div class="consentmanager-header">

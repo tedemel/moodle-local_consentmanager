@@ -34,6 +34,7 @@ $string['banner_title'] = 'Your privacy choices';
 $string['btn_acceptall'] = 'Accept all';
 $string['btn_acceptall_label'] = 'Accept all cookies and tracking';
 $string['btn_back'] = 'Back';
+$string['btn_close_label'] = 'Close – essential cookies only';
 $string['btn_essential'] = 'Essential only';
 $string['btn_essential_label'] = 'Decline optional cookies — essential only';
 $string['btn_export_csv'] = 'Export audit log (CSV)';

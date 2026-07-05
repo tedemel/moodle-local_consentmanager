@@ -34,6 +34,7 @@ $string['banner_title'] = 'Ihre Datenschutz-Einstellungen';
 $string['btn_acceptall'] = 'Alle akzeptieren';
 $string['btn_acceptall_label'] = 'Allen Cookies und Tracking zustimmen';
 $string['btn_back'] = 'Zurück';
+$string['btn_close_label'] = 'Schließen – nur essenzielle Cookies zulassen';
 $string['btn_essential'] = 'Nur essenzielle';
 $string['btn_essential_label'] = 'Optionale Cookies ablehnen – nur essenzielle zulassen';
 $string['btn_export_csv'] = 'Auditprotokoll exportieren (CSV)';
